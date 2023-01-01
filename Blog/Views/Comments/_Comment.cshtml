@@ -1,0 +1,154 @@
+﻿@model IEnumerable<TheatreCMS3.Areas.Blog.Models.Comment>
+
+<div>
+    <button class="btn-danger" onclick="commentModal(0)">Create New Comment</button>
+</div>
+<!--Create comment modal popup-->
+<div class="createComment" id="createComment-0">
+    <input id="commentInput-0" class="createInput" type="text" name="Message" />
+    <button type="button" class="btn-danger" onclick="commentModal(0)">Cancel</button>
+    <button type="button" class="btn-danger" onclick="asyncCreateComment(0)">Post Comment</button>
+</div>
+
+<div id="commentFlag-0"></div>
+<!--Comments Section-->
+@foreach (var item in Model)
+{
+    TimeSpan postDate = DateTime.Now - item.CommentDate;
+    string dayAgo = (postDate.Days == 1) ? "day ago" : "days ago";
+
+    if (item.CommentRef == 0)
+    {
+        <div id="comment-@item.CommentId">
+            <!--Display Comment-->
+            <p>
+                @Html.DisplayFor(modelItem => item.Author) <small>@postDate.Days @dayAgo </small>
+                <br />
+                @Html.DisplayFor(modelItem => item.Message)
+                <br />
+                <button class="btn" onclick="incrementLike(@item.CommentId)">❤️</button> <span id="commentLikes-@item.CommentId">@Html.DisplayFor(modelItem => item.Likes)</span>
+                <button class="btn" onclick="incrementDislike(@item.CommentId)">🤮</button> <span id="commentDislikes-@item.CommentId">@Html.DisplayFor(modelItem => item.Dislikes)</span>
+                <button class="btn-danger" onclick="commentModal(@item.CommentId)">Reply</button>
+                @if (User.IsInRole("CommentModerator"))
+                {
+                    <button class="btn" onclick="openDeleteModal(@item.CommentId)">🗑️</button>
+                }
+            </p>
+            <div class="progress">
+                <div id="commentProgress-@item.CommentId" class="progress-bar bg-danger" role="progressbar" style="width:@Math.Round(item.LikeRatio())%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <hr />
+
+            <!--Confirm Delete modal popup-->
+            <div id="deleteComment-@item.CommentId" class="deleteComment">
+                <div class="deleteCommentContainer center">
+                    <h1>CONFIRM DELETE!</h1>
+                    <p>
+                        Are you certain that you would like to delete?
+                        <br><small>-This action cannot be undone-</small>
+                    </p>
+                    <button class="" type="button" onclick="closeDeleteModal(@item.CommentId)">Cancel</button>
+                    <button class="btn-danger" type="submit" onclick="deleteComment(@item.CommentId)">DELETE</button>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete Confirmation message: hidden by CSS-->
+        <div id="deleteCommentConfirmed-@item.CommentId" class="deleteCommentConfirmed">
+            <p><b>The comment was deleted successfully ✓</b></p>
+        </div>
+
+        <!--Subcomment modal popup-->
+        <div id="createComment-@item.CommentId" class="createComment">
+            <input id="commentInput-@item.CommentId" class="createInput" type="text" name="Message" />
+            <button type="button" class="btn-danger" onclick="commentModal(@item.CommentId)">Cancel</button>
+            <button type="button" class="btn-danger" onclick="asyncCreateComment(@item.CommentId)">Post Reply</button>
+        </div>
+
+        <!--Subcomment Section-->
+        <div id="subcommentSection-@item.CommentId" class="subcommentSection">
+            <div id="commentFlag-@item.CommentId"></div>
+            @foreach (var subcomment in Model)
+            {
+                if (subcomment.CommentRef == item.CommentId)
+                {
+                    <!--Display Subcomment-->
+                    <div id="comment-@subcomment.CommentId">
+                        <p>
+                            @Html.DisplayFor(modelItem => subcomment.Author) <small>@subcomment.CommentDate</small>
+                            <br />
+                            @Html.DisplayFor(modelItem => subcomment.Message)
+                            <br />
+                            <button class="btn" onclick="incrementLike(@subcomment.CommentId)">❤️</button> <span id="commentLikes-@subcomment.CommentId">@Html.DisplayFor(modelItem => subcomment.Likes)</span>
+                            <button class="btn" onclick="incrementDislike(@subcomment.CommentId)">🤮</button> <span id="commentDislikes-@subcomment.CommentId">@Html.DisplayFor(modelItem => subcomment.Dislikes)</span>
+                            <button class="btn-danger" onclick="commentModal(@subcomment.CommentId)">Reply</button>
+                            @if (User.IsInRole("CommentModerator"))
+                            {
+                                <button class="btn" onclick="openDeleteModal(@subcomment.CommentId)">🗑️</button>
+                            }
+                            </p>
+                        <div class="progress">
+                            <div id="commentProgress-@subcomment.CommentId" class="progress-bar bg-danger" role="progressbar" style="width:@Math.Round(subcomment.LikeRatio())%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <hr />
+
+                        <!--Confirm Delete modal popup-->
+                        <div id="deleteComment-@subcomment.CommentId" class="deleteComment">
+                            <div class="deleteCommentContainer center">
+                                <h1>CONFIRM DELETE!</h1>
+                                <p>Are you certain that you would like to delete?
+                                    <br><small>-This action cannot be undone-</small>
+                                </p>
+                                <button class="" type="button" onclick="closeDeleteModal(@subcomment.CommentId)">Cancel</button>
+                                <button class="btn-danger" type="submit" onclick="deleteComment(@subcomment.CommentId)">DELETE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Confirmation of deletion message: hidden by CSS-->
+                    <div id="deleteCommentConfirmed-@subcomment.CommentId" class="deleteCommentConfirmed">
+                        <p><b>The comment was deleted successfully ✓</b></p>
+                    </div>
+
+                    <!--Create a subcomment-->
+                    <div id="createComment-@subcomment.CommentId" class="createComment">
+                        <input id="commentInput-@subcomment.CommentId" class="createInput" type="text" name="Message" />
+                        <button type="button" class="btn-danger" onclick="commentModal(@subcomment.CommentId)">Cancel</button>
+                        <button type="button" class="btn-danger" onclick="asyncCreateComment(@subcomment.CommentId, @item.CommentId)">Post Reply</button>
+                    </div>
+                }
+            }
+        </div>
+    }
+}
+
+<!-- DEFAUL EF CODE....
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Likes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dislikes)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CommentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CommentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CommentId })
+            </td>
+        </tr>
+    }
+
+</table>
+-->

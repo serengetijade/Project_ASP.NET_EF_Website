@@ -1,0 +1,35 @@
+﻿@model TheatreCMS3.Areas.Blog.Models.BlogPhoto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BlogPhoto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+
+        <dd>
+            <!--In order for the image to display, it must be converted from byte back to an image. To do so, call the byteToImg function in the BlogPhotosController-->
+            <img src="@Url.Action("byteToImg", new { id = Model.BlogPhotoId})" alt="PhotoId: @Model.BlogPhotoId">
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BlogPhotoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

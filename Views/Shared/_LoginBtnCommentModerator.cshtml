@@ -1,0 +1,5 @@
+﻿@using (Html.BeginForm("LoginCommentModerator", "Account", new { area = "", ReturnUrl = Request.Url.AbsoluteUri }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <button id="LoginBtnCommentModerator" class="btn-danger" type="submit">Log in as Comment Moderator</button>
+}

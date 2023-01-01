@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "AccessDenied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="text-align:center">
+    <h2>We regret to inform you...</h2>
+    <img src="https://www.memesmonkey.com/images/memesmonkey/8d/8d851bb730d1c17192e08ac8753a444e.jpeg" alt="Access Denied" />
+    <p>You are not authorized to visit that page. Please log in to an authorized account.</p>
+    <a href="@Url.Action("Login", "Account", new { area = "" })"><button class="btn-danger prod-btn w-50">Log In</button></a>
+</div>

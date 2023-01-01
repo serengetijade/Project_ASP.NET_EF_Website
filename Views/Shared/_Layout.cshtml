@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewBag.Title - My ASP.NET Application</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
+  @if (ViewContext.RouteData.DataTokens["area"] != null)
+  {
+    <link rel="stylesheet" href="~/Content/Areas/@(ViewContext.RouteData.DataTokens["area"]).css" />
+  }
+  <!--add google font for header section-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
+  <!--add Google fonts for home page-->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <link href="~/Content/all.css" rel="stylesheet" />
+  <link href="~/Content/font-awesome.css" rel="stylesheet" />
+  @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+  @Html.Partial("_Navbar")
+  @Html.Partial("_DevNavbar")
+  <div class="container body-content">
+    @RenderBody()
+    <!--Required syntax to load in a partial when it meets a specific condition, if the page uses the comment controller-->
+    @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Comments" && (!Request.IsAuthenticated))
+    {
+        @Html.Partial("_LoginBtnCommentModerator");
+    }
+  </div>
+  @Html.Partial("_Footer")
+
+  @if (ViewContext.RouteData.DataTokens["area"] != null)
+  {
+    <script src="~/Scripts/Areas/@(ViewContext.RouteData.DataTokens["area"]).js"></script>
+  }
+  @RenderSection("scripts", required: false)
+  @Scripts.Render("~/bundles/bootstrap")
+  @Scripts.Render("~/Scripts/Site.js")
+</body>
+</html>

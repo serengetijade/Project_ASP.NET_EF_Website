@@ -1,0 +1,62 @@
+﻿@model TheatreCMS3.Areas.Blog.Models.BlogPost
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4 class="blogpost-createandedit-header">Create Blog Post</h4>
+    <hr />
+    <div class="blogpost-createandedit-container">
+        <div class="blogpost-createandedit-container-container">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => Model.Title, new { @placeholder = "Enter a Title", @class = "form-control blogpost-createandedit-txtbox" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => Model.Content, new { @placeholder = "Enter Blog Content", @class = "form-control blogpost-createandedit-txtbox" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Posted, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => Model.Posted, new { @placeholder = "Enter Date Posted", @class = "form-control blogpost-createandedit-txtbox" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => Model.Author, new { @placeholder = "Enter Author Name", @class = "form-control blogpost-createandedit-txtbox" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default blogpost-create-createbutton" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default blogpost-createandedit-backbutton" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+    
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

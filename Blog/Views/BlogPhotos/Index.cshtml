@@ -1,0 +1,104 @@
+﻿@model IEnumerable<TheatreCMS3.Areas.Blog.Models.BlogPhoto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    :root {
+        --width: 400px;
+        --height: 200px;
+    }
+
+    .BlogPhoto-Index-FlexBox {
+        display: -webkit-flex;
+        display: flex;      /*Displays an element as a block-level flex container, allowing child elements to move within it*/
+        flex-wrap: wrap;    /*Make the flexible items wrap if necessary*/
+        margin: 0px auto;   /*Centers this class on the page*/
+        width: 90%;         /*Width of this FlexBox'*/
+    }
+
+    .BlogPhoto-Index-PhotoContainer {
+        margin: 15px auto;
+        text-align: center;
+        width: var(--width);
+        height: var(--height);
+        cursor: pointer;
+    }
+    .BlogPhoto-Index-Photo {
+        position: relative; /*Relative=The element is positioned relative to its normal position*/
+        overflow: hidden; /*Any overflow content is clipped. Overflow specifies whether to clip content or to add scrollbars when an element's content is too big to fit in a specified area.*/
+    }
+    .BlogPhoto-Index-PhotoContainer img {
+        width: var(--width);
+        height: var(--height);
+    }
+    .BlogPhoto-Index-PhotoOverlay {
+        /*justify-content: center;*/ /*Center all elements inside 'display: flex;' containers*/
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        /*Photo overlay transition*/
+        opacity: 0; /*Hide the element when NOT hovered*/
+        transition: opacity .1s; /*property and duration*/
+        background: rgba(255,255,255,.2); /*Brighten the overlay*/
+        /*END Photo overlay transition*/
+    }
+    .BlogPhoto-Index-PhotoOverlay:hover {
+        opacity: 1;  /*Show the element when hovered*/
+    }
+    .BlogPhoto-Index-OverlayTitle {
+        position: absolute; 
+        left: 5px;
+        top: 5px;
+    }
+    .BlogPhoto-Index-Photo img {
+        transition: transform .5s; /*The animation*/
+        transform-origin: 50% 50%; /*"Dead on" transform*/
+    }
+    .BlogPhoto-Index-Photo:hover img {
+        transform: scale(1.1);
+    }
+
+    .BlogPhoto-Index-PhotoButtons {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        text-decoration: none;
+    }
+    .BlogPhoto-Index-PhotoButtons a {
+        color: white;
+    }         
+    .BlogPhoto-Index-PhotoButtons a:hover {
+        font-weight: bold;
+        text-decoration: none;
+    }
+</style>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class=".BlogPhoto-Index-FlexBox">
+    @foreach (var item in Model)
+    {
+        <div class="BlogPhoto-Index-PhotoContainer">
+            <div class="BlogPhoto-Index-Photo">
+                <a href="@Url.Action("Details", new { id = item.BlogPhotoId })">
+                    <img src="@Url.Action("byteToImg", new { Id = item.BlogPhotoId})" alt="PhotoId: @item.BlogPhotoId" />
+                </a>
+                <div class="BlogPhoto-Index-PhotoOverlay">
+                    <h4 class="BlogPhoto-Index-OverlayTitle">@item.Title</h4>
+                    <div class="BlogPhoto-Index-PhotoButtons">
+                        <span class="badge-pill badge-dark">@Html.ActionLink("Edit", "Edit", new { id = item.BlogPhotoId })</span>
+                        <span class="badge-pill badge-danger">@Html.ActionLink("Delete", "Delete", new { id = item.BlogPhotoId })</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,97 @@
+﻿@model TheatreCMS3.Areas.Blog.Models.BlogAuthor
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://kit.fontawesome.com/634caf7d3f.js" crossorigin="anonymous"></script>
+
+
+<h2 class="Blog-Details-Header">Delete</h2>
+
+<h3 class="Blog-Delete-subHeader">Are you sure you want to delete your profile?</h3>
+
+<div class="Blog-Details-buttonContainer">
+    <button class="DetailsTabLinks btn-dark" onclick="openInfo(event,'Author')" id="DetailesDefaultOpen"> Author Details</button>
+    <button class="DetailsTabLinks btn-dark" onclick="openInfo(event,'Posts')">Blog Posts </button>
+    <button class="DetailsTabLinks btn-dark" onclick="openInfo(event,'Contact')"> Contact</button>
+    <button class="DetailsTabLinks btn-dark" onclick="openInfo(event,'Twitter')">Twitter</button>
+</div>
+
+@*----------------Main content---------------------*@
+<div class="Blog-Details-ContentContaner">
+    <div class="Blog-Details-photoContainer ">
+        <img class="Blog-Details-Photo" src="~/Content/images/photo-Placeholder.jpg" />
+    </div>
+
+    <div class="Blog-Details-InfoPages">
+
+        <div id="Author" class="DetailsTabContent">
+            <h4 class="Blog-Details-AuthorName">@Html.DisplayFor(model => model.Name)</h4>
+            <div class="Blog-Details-Icons">
+                <a href="https://www.instagram.com/">
+                    <i class="fa fa-instagram fa-2x Blog-Details-Social"></i>
+                </a>
+                <a href="https://www.facebook.com/">
+                    <i class="fa fa-facebook fa-2x Blog-Details-Social"></i>
+                </a>
+            </div>
+            <p class="Blog-Details-Bio"> @Html.DisplayFor(model => model.Bio)</p>
+            <div class="Blog-Details-dates">
+                <div class="Blog-Details-Join col-10">
+                    <div>
+                        <span class="Blog-Details-JoinName">@Html.DisplayNameFor(model => model.Joined)</span>
+                    </div>
+                    <div class="Blog-Details-Title">
+                        @Html.DisplayFor(model => model.Joined)
+                    </div>
+                </div>
+                <div class="Blog-Details-Left col-10">
+                    <div>
+                        <span class="Blog-Details-JoinName">@Html.DisplayNameFor(model => model.Left)</span>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(model => model.Left)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Posts" class="DetailsTabContent">
+            <div class="Blog-Details-ComingSoon">
+                Content coming soon.......
+            </div>
+        </div>
+        <div id="Contact" class="DetailsTabContent">
+            <div class="Blog-Details-ComingSoon">
+                Content coming soon.......
+            </div>
+        </div>
+        <div id="Twitter" class="DetailsTabContent">
+            <div class="Blog-Details-ComingSoon">
+                Content coming soon.......
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Blog-Delete-NavButtons">
+    <div>
+        <a href='@Url.Action("Index","BlogAuthors")' class='btn btn-dark BlogAuthor-Create-BackBtn'><i class="fa fa-arrow-circle-o-left"></i>Back to List</a>
+    </div>
+    
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-actions Blog-Delete-DeleteButton">
+
+           <button type="submit" value="Delete" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+               
+        </div>
+        }
+    </div>
+
+
+</div>
+
+
