@@ -32,6 +32,7 @@ Specific tasks were assigned by the sprint leader, to be completed within a cert
 An important part of working with a team is providing support when you can. During the sprint, I was able to help debug my teammates code and provide direction in a few instances when they weren't sure how to proceed. I helped resolve a javascript modal issue, set up a loop to display database content, debug a new method that involved adding code to pass in record id numbers, and some other small issues. At the end of the sprint, I also organized an extended code retrospective (outside of scheduled hours) to teach my team mates about the work I'd done that they were unfamiliar with, and invited them to present interesting concepts they had come across. 
 
 # Code Summary
+![Blog_Photos](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/readme/BlogPhotoDemo.gif)
 ## Code First BlogPhoto Class, Database Table, and CRUD Pages
 A code first approach was used to create a new class for [blog photo](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Models/BlogPhoto.cs#L8) objects. The database table and CRUD pages were scaffolded by creating a controller from this class, and using Entity Framework. Due to C#s naming convention, the name of the database table had to be manually changed from “BlogPhotoes” to “BlogPhotos”. This also required updating the DbSet within the Models/IndentityModels file (a DbSet is the collection of entities in the database).
 
@@ -55,6 +56,7 @@ https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de
 Call the byteToImage method to convert the byte array to an image:
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Views/BlogPhotos/Index.cshtml#L92
 
+![Blog_Comments](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/readme/CommentDemo.gif)
 ## Code First BlogComments Class, Database, and CRUD Pages 
 A new model was defined to represent user comments and store them within a table in the database. The class constructor was modified so the DateTime property sets the current time- it will always record the time the comment was posted. Entity Framework scaffolding was used by creating a CommentsController. The CRUD pages were later modified and customized to expand their default functions. 
 
