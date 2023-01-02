@@ -32,7 +32,7 @@ Specific tasks were assigned by the sprint leader, to be completed within a cert
 An important part of working with a team is providing support when you can. During the sprint, I was able to help debug my teammates code and provide direction in a few instances when they weren't sure how to proceed. I helped resolve a javascript modal issue, set up a loop to display database content, debug a new method that involved adding code to pass in record id numbers, and some other small issues. At the end of the sprint, I also organized an extended code retrospective (outside of scheduled hours) to teach my team mates about the work I'd done that they were unfamiliar with, and invited them to present interesting concepts they had come across. 
 
 # Code Summary
-## Code First BlogPhoto class, database table, and CRUD pages
+## Code First BlogPhoto Class, Database Table, and CRUD Pages
 A code first approach was used to create a new class for [blog photo](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Models/BlogPhoto.cs#L8) objects. The database table and CRUD pages were scaffolded by creating a controller from this class, and using Entity Framework. Due to C#s naming convention, the name of the database table had to be manually changed from “BlogPhotoes” to “BlogPhotos”. This also required updating the DbSet within the Models/IndentityModels file (a DbSet is the collection of entities in the database).
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Models/BlogPhoto.cs#L8-L13
@@ -46,7 +46,7 @@ To convert the uploaded file to a byte array, another method was written utilizi
 [BlogPhotosController:](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Controllers/BlogPhotosController.cs)
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Controllers/BlogPhotosController.cs#L176-L194
 
-## Custom Index/Edit/Delete View to Render Images
+## Customized Index, Edit, Delete Views to Render Images
 In order to render the uploaded blog photos on the [index](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Views/BlogPhotos/Index.cshtml#L91) page, the default template code was replaced with customized HTML and CSS. Each record (each uploaded blog photo) was looped through and displayed as a unique card with CSS hover effects and links to Details, Edit, and Delete pages. In order for the images to render, the Url.Action helper method was utilized to call the byteToImage method, described above, to convert the byte array back to an image so that it correctly renders in the view. The Details, Edit, and Delete pages were likewise adjusted to be able to render the image, so instead of the long, intelligible byte array, the image is displayed. 
 
 Replace the default links with Url.Action references: 
@@ -55,12 +55,12 @@ https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de
 Call the byteToImage method to convert the byte array to an image:
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Views/BlogPhotos/Index.cshtml#L92
 
-## Code First BlogComments class, database, and CRUD pages 
+## Code First BlogComments Class, Database, and CRUD Pages 
 A new model was defined to represent user comments and store them within a table in the database. The class constructor was modified so the DateTime property sets the current time- it will always record the time the comment was posted. Entity Framework scaffolding was used by creating a CommentsController. The CRUD pages were later modified and customized to expand their default functions. 
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de060145f0539ee92fd72373520/Blog/Models/Comment.cs#L9-L27
 
-## Reorder the model by property value
+## Reorder the Model by Property Value
 The model’s controller was modified to reorder the list of records. Blog comments were to appear according to the comment date, one of the model’s properties, in order from newest to oldest. The Controller’s Index method was modified to pass along the list of database objects according to that property value, in descending order. 
 
 ```
@@ -107,8 +107,8 @@ Asynchronous JavaScript, AJAX, was used to call a method to create a database re
 ### New Comments:
 To create new comments, an id of 0 is passed in with the call and the ref is null: The ref value of null triggers the if statement for new comments. The id of 0 is used to set the CommentRef and NOT the commentId (that is auto-generated). A CommentRef of 0 means it is a new comment and is a subcomment, aka a reply to another comment. The null ref is also used to assign a value to the new comments CommentRef property, but being null, does NOT change the value of the controller, which is zero. That zero is then used as a reference to a location at the top of the comments section, where an element’s id was hard-coded to be #comment-0, so new comments will always display there.
 
-### Subcomments:
-Subcomments pass in their Id number as well as the reference to the parent comment. The Id number is used to determine the correct input element to pull from, and later where to display the subcomment. Unlike with new comments, a ref that is not null triggers a slightly different AJAX call that assigns the CommentRef parameter value to be that of the parent comment, indicating that it is a subcomment.  
+### Sub Comments:
+Sub comments pass in their Id number as well as the reference to the parent comment. The Id number is used to determine the correct input element to pull from, and later where to display the subcomment. Unlike with new comments, a ref that is not null triggers a slightly different AJAX call that assigns the CommentRef parameter value to be that of the parent comment, indicating that it is a subcomment.  
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de060145f0539ee92fd72373520/Scripts/Blog.js#L67-L96
 
@@ -118,7 +118,7 @@ https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de
 
 Upon successful completion of the AJAX call, another javascript method is called to render the comment values as html within the view.
 
-## Asynchronously update the view with user input, AJAX, and JQuery to display comments and subcomments.
+## Asynchronously Update Views to Display Comments and Subcomments
 In order to display the new comments and subcomments without having to reload the page, the AJAX call, after successfully creating a new comment, calls another method to insert html into the document view. As the view loops through each model object to render the page, there is an inner loop to check to see if another comment has a CommentRef parameter whose value matches the CommentId. If that other comment matches, it is a sub comment and displays in the subcomment section. But that only happens after the page is refreshed the model is looped through again; JavaScript and JQuery take the Json result from the asyncCreateComment method, detailed above, and insert it into a jQuery statement that renders it as html and inserts it into the document. The location for each insertion is defined by the id/ref passed along when the AJAX method is called. Each comment has a unique #comment-Id html id name associated with it.  
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Scripts/Blog.js#L98-L152
@@ -134,7 +134,7 @@ When triggered, the ajax functions above use a url to point to method(s) within 
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Blog/Controllers/CommentsController.cs#L136-L161
 
-## Progress Bar 
+### Progress Bar 
 The bootstrap progress bar displays the number of likes as a percentage of the total votes.
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Blog/Views/Comments/_Comment.cshtml#L37
@@ -170,7 +170,7 @@ The LoginCommentModerator used hard coded values (the username and password of t
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Controllers/AccountController.cs#L544-L564
 
-## Controller-based Dynamic View
+## Controller-based Dynamic Views
 Within the shared _Layout file, an if statement was added, so that a partial view will only be displayed when it meets defined conditions: 
 - the page is using the Comments controller, and 
 - the current user is not logged in
