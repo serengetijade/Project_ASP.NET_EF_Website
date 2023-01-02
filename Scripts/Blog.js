@@ -115,7 +115,6 @@ function displayComment(result, id) {
                 '<button class="btn" onclick="openDeleteModal(' + CommentId + ')">🗑️</button>' +
             '</p>' +
 
-            //'<!--LIKE RATIO NEEDS ATTENTION-->' +
             '<div class="progress">' +
                 '<div id="commentProgress-' + CommentId + '" class="progress-bar bg-danger" role="progressbar" style="width:@Math.Round(item.LikeRatio())%"></div>' +
             '</div>' +
