@@ -1,5 +1,5 @@
 # Project_ASP.NET_EF_Website
-This repo highlights my work on a C# project using MVC and Entity Framework to add functions to an existing website for a theatre company. The focus is to expand their blog section to allow comments, subcomments, image uploads, and a user role to moderate those comments. The work involed adding creating models, adding databases, and writing custom logic for the CRUD functionality. In addition to C# several other languages, and libraries, were used, including: JavaScript, AJAX, SQL, JSON, jQuery, and Bootstrap.
+This repo highlights my work on a C# project using MVC and Entity Framework to add functions to an existing website for a theatre company. The focus is to expand their blog section to allow comments, subcomments, image uploads, and a role authorization to moderate those comments. The work involed creating models, adding databases, writing custom logic for the CRUD functionality, and styling pages. In addition to C# several other languages, and libraries, were used, including: JavaScript, AJAX, SQL, JSON, jQuery, and Bootstrap.
 
 ## Skills Implemented
 - <b>Languages and Libraries:</b> C#, JavaScript, HTML, CSS, Bootstrap.
@@ -47,7 +47,7 @@ To convert the uploaded file to a byte array, another method was written utilizi
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Controllers/BlogPhotosController.cs#L176-L194
 
 ## Customized Index, Edit, Delete Views to Render Images
-In order to render the uploaded blog photos on the [index](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Views/BlogPhotos/Index.cshtml#L91) page, the default template code was replaced with customized HTML and CSS. Each record (each uploaded blog photo) was looped through and displayed as a unique card with CSS hover effects and links to Details, Edit, and Delete pages. In order for the images to render, the Url.Action helper method was utilized to call the byteToImage method, described above, to convert the byte array back to an image so that it correctly renders in the view. The Details, Edit, and Delete pages were likewise adjusted to be able to render the image, so instead of the long, intelligible byte array, the image is displayed. 
+In order to render the uploaded blog photos on the [index](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Views/BlogPhotos/Index.cshtml#L91) page, the default template code was replaced with customized HTML and CSS. Each record (each uploaded blog photo) was looped through and displayed as a unique card with CSS hover effects and links to Details, Edit, and Delete pages. In order for the images to render, the Url.Action helper method was utilized to call the byteToImage method, described above, to convert the byte array back to an image so that it correctly renders in the view. The Details, Edit, and Delete pages were likewise adjusted to be able to render the image, so instead of the long, intelligible byte array, the image is displayed. The Index page for the blog photos required a total overhaul of the styling to present images as cards that display text, links, and buttons when hovered. 
 
 Replace the default links with Url.Action references: 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de060145f0539ee92fd72373520/Blog/Views/BlogPhotos/Index.cshtml#L91
@@ -160,6 +160,9 @@ Finally, jQuery fades in and out another element to notify users that the commen
 A “CommentModerator” class was added to expand the ApplicationUser class, two new parameters were added, and a seed method was added to create a new role and assign a default user to it. The seed method was then called from within the configuration file to run as part of the application upon startup. The seed method created a new role using RoleManager, a default user was defined using UserManager, and the default user was then assigned to that new role. 
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Blog/Models/CommentModerator.cs#L48-L62
+
+To implement the seed method created above, it must be called from within the Migrations/Configuration file. The following method was added to do so: 
+https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4b8d53564b140310d81f3c864365a22166e2dbee/Migrations/Configuration.cs#L14-L27
 
 ## Easy Login Button (Partial View)
 A button was created to automatically log in as a specific user: the Comment Moderator default user. The button was put inside of a partial view to be used in specific views. The button was styled with CSS to appear at a fixed position on the page. The button was placed as the submit button within a Razor form that calls the LoginCommentModerator method within the AccountController, and passes in the AbsoluteUri.
