@@ -2,13 +2,14 @@
 This repo highlights my work on a C# project using MVC and Entity Framework to add functions to an existing website for a theatre company. The focus is to expand their blog section to allow comments, subcomments, image uploads, and a user role to moderate those comments. The work involed adding creating models, adding databases, and writing custom logic for the CRUD functionality. In addition to C# several other languages, and libraries, were used, including: JavaScript, AJAX, SQL, JSON, jQuery, and Bootstrap.
 
 ## Skills Implemented
-- <b>Languages:</b> C#, JavaScript, HTML, CSS.
-    -- Javascript was used to create custom modal popups: a 'Confirm Delete' element pops up to ask users if they are sure they wish to delete a record.
-    -- jQuery DOM methods were applied to fade in/out confirmation messages after user action. 
-    -- AJAX was used to change views without having to reload the entire page: 
+- <b>Languages and Libraries:</b> C#, JavaScript, HTML, CSS, Bootstrap.
+    - Javascript was used to create custom modal popups: a 'Confirm Delete' element pops up to ask users if they are sure they wish to delete a record.
+    - jQuery DOM methods were applied to fade in/out confirmation messages after user action. 
+    - AJAX was used to change views without having to reload the entire page: 
         - comment likes and dislikes were incremented after button click and the progress bar updated; 
         - new comments were displayed; 
         - deleted comments were removed from the view.
+    - Bootstrap: several elements were encorporated, such as cards, buttons, style classes, status bars, and badges.
 - <b>MVC and Entity Framework:</b> implemented the Model-View-Controller design pattern within Entity Framework to develop the web application and add more features to the website. Work on the blog section involved interacting with each part of the MVC, from creating new models to represent the comments, to customizing the view to properly display images, to adding several custom methods to the controller.
 - <b>Partial Views: In order to leverage chunks of code, partial views were added to reduce redundancy. In some cases, logic was added to dynamically display views based on the user's role.  
 - <b>Razor:</b> To utilize C# code within the html views, razor syntax was added to access database entities and display content throughout mulitple documents. 
@@ -52,4 +53,7 @@ Replace the default links with Url.Action references:
                 <a href="@Url.Action("Details", new { id = item.BlogPhotoId })">
 
 Call the byteToImage method to convert the byte array to an image:
+```
+<img src="@Url.Action("byteToImg", new { Id = item.BlogPhotoId})" alt="PhotoId: @item.BlogPhotoId" />
+```
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Views/BlogPhotos/Index.cshtml#L92
