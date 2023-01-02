@@ -104,6 +104,8 @@ https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d4ea26a2dba10de
 
 Asynchronous JavaScript, AJAX, was used to call a method to create a database record. The call passes the id, if any, of the comment and the reference (ref) to the parent comment, if any. 
 
+![Comment_Section](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/readme/CommentSection.jpg)
+
 ### New Comments:
 To create new comments, an id of 0 is passed in with the call and the ref is null: The ref value of null triggers the if statement for new comments. The id of 0 is used to set the CommentRef and NOT the commentId (that is auto-generated). A CommentRef of 0 means it is a new comment and is a subcomment, aka a reply to another comment. The null ref is also used to assign a value to the new comments CommentRef property, but being null, does NOT change the value of the controller, which is zero. That zero is then used as a reference to a location at the top of the comments section, where an element’s id was hard-coded to be #comment-0, so new comments will always display there.
 
