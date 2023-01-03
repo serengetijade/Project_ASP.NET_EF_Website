@@ -109,8 +109,8 @@ namespace TheatreCMS3.Areas.Blog.Controllers
                 return HttpNotFound();
             }
             return View(comment);
-        }
-
+        }        
+        
         // POST: Blog/Comments/Delete/5
         [Authorize(Roles = "CommentModerator")]
         [HttpPost, ActionName("Delete")]
@@ -118,6 +118,14 @@ namespace TheatreCMS3.Areas.Blog.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
+            foreach (Comment subcomment in db.Comments)
+            {
+                //If the parent comment is deleted, it's subcomments will be deleted too:
+                if (subcomment.CommentRef== id)
+                {
+                    db.Comments.Remove(subcomment);
+                }
+            }
             db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("Index");
