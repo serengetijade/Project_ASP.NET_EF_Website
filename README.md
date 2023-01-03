@@ -3,6 +3,7 @@ This repo highlights my work on a C# project using MVC and Entity Framework to a
 
 ## Skills Implemented
 - <b>Languages and Libraries:</b> C#, JavaScript, HTML, CSS, Bootstrap.
+    - C# was used extensively to create objects and databases, perform logic to create, read, update, and delete database records, display partial views, create roles and implement authorization requirements, dynamically return views based on user roles, upload files to the database, and more.
     - Javascript was used to create custom modal popups: a 'Confirm Delete' element pops up to ask users if they are sure they wish to delete a record.
     - jQuery DOM methods were applied to fade in/out confirmation messages after user action. 
     - AJAX was used to change views without having to reload the entire page: 
