@@ -154,11 +154,11 @@ A popup was created and added to ask users to confirm that they wish to delete a
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Scripts/Blog.js#L31-L37
 
-After the user confirms the deletion, asynchronous javascript (AJAX) is used to call a controller method to delete the record from the database and JavaScript is used to remove the element from the view:
+After the user confirms the deletion, asynchronous javascript (AJAX) is used to call a controller method to delete the record from the database and JavaScript is used to remove the element from the view. 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Scripts/Blog.js#L48-L60
 
-The AJAX call points to a method in the controller that deletes the record from the database, and returns the object’s id. 
-https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/d6064bad2e2c9603a1e13b380321dc4b9c5b8a7c/Blog/Controllers/CommentsController.cs#L164-L171
+The AJAX call points to a method in the controller that deletes the record from the database, and returns the object’s id. As part of the delete method, if a parent comment is deleted, the sub comments are deleted as well. 
+https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/28d7b3c0e371613379bccd9675acfe45dca870f4/Blog/Controllers/CommentsController.cs#L115-L132
 
 Finally, jQuery fades in and out another element to notify users that the comment has been deleted. 
 
