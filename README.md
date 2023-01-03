@@ -38,11 +38,13 @@ A code first approach was used to create a new class for [blog photo](https://gi
 
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Models/BlogPhoto.cs#L8-L13
 
+### Upload Files to the Database
 In the newly created BlogPhotosController, a custom CreateBlogPhoto method was added to upload files to the database. Logic was added to ensure the uploaded files were not empty, and also of extension type .jpg, .jpeg, or .png. Alerts were added to notify users if each condition was not met. If the upload was valid, it was converted to a byte array and saved to the database as a new record (object). 
 
 [BlogPhotosController:](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Controllers/BlogPhotosController.cs)
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Controllers/BlogPhotosController.cs#L142-L174
 
+### Convert Uploads to Byte Array
 To convert the uploaded file to a byte array, another method was written utilizing BinaryReader. Then when the file needs to be rendered as an image, it is converted back using the built-in File method. 
 [BlogPhotosController:](https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/main/Blog/Controllers/BlogPhotosController.cs)
 https://github.com/serengetijade/Project_ASP.NET_EF_Website/blob/4a5da55471a204024df5d4685a12a49ed418249a/Blog/Controllers/BlogPhotosController.cs#L176-L194
